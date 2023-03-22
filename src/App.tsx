@@ -90,6 +90,10 @@ const ButtonStart = styled.button`
 	border-radius: 50px;
 	font-size: 40px;
 	color: #fff;
+
+	box-shadow: 0px 27px 34px rgba(0, 0, 0, 0.22), 0px 11.3236px 21.1551px rgba(0, 0, 0, 0.167346),
+		0px 6.90419px 14.1512px rgba(0, 0, 0, 0.142985), 0px 4.66806px 8.8193px rgba(0, 0, 0, 0.120524),
+		0px 2.68781px 4.23402px rgba(0, 0, 0, 0.0888636);
 `;
 
 export default App;
