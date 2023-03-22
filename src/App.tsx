@@ -9,7 +9,15 @@ function App() {
 			<GlobalStyle />
 			<AppContainer>
 				<Header>Quiz App</Header>
-				<Container></Container>
+				<Container>
+					<Description>
+						<p>
+							This is a Demo My Quiz App I created these apps by myself. Using design app Figma and
+							uses technologies React and Typescrip
+						</p>
+					</Description>
+					<ButtonStart>Play</ButtonStart>
+				</Container>
 			</AppContainer>
 		</>
 	);
@@ -20,6 +28,10 @@ const GlobalStyle = createGlobalStyle`
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+  }
+
+  body{
+	font-family: Arial, Helvetica, sans-serif;
   }
 `;
 
@@ -40,10 +52,44 @@ const Header = styled.p`
 `;
 
 const Container = styled.div`
+	display: flex;
+	justify-content: center;
+	align-content: space-around;
+	flex-wrap: wrap;
+
 	height: 530px;
 	width: 100%;
 	border-radius: 28px 28px 0px 0px;
 	background-color: #fff;
+`;
+
+const Description = styled.div`
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+	border-radius: 8px;
+	width: 280px;
+	height: 185px;
+
+	background-color: #4d4d4d;
+
+	& p {
+		font-weight: bold;
+		font-size: 20px;
+		color: #fff;
+	}
+`;
+
+const ButtonStart = styled.button`
+	all: unset;
+	background-color: #00b0bb;
+	width: 200px;
+	height: 80px;
+	text-align: center;
+	border-radius: 50px;
+	font-size: 40px;
+	color: #fff;
 `;
 
 export default App;
