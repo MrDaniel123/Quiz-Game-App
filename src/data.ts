@@ -7,7 +7,7 @@ type Question = {
 	currentAnswer: string;
 };
 
-type QuizList = {
+export type QuizList = {
 	quizName: string;
 	description: string;
 	question: Question[];
@@ -15,7 +15,7 @@ type QuizList = {
 
 export const quizData: QuizList[] = [
 	{
-		quizName: 'Alimals Quiz',
+		quizName: 'City Quiz',
 		description: ' Capital City Quiz',
 		question: [
 			{

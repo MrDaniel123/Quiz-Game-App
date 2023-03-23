@@ -1,23 +1,43 @@
 import React from 'react';
+import { useState } from 'react';
 
 import styled from 'styled-components';
 import { createGlobalStyle } from 'styled-components';
 
+import QuizInfo from './components/QuizInfo';
+import { quizData } from './data';
+
 function App() {
+	const [homePage, setHomepage] = useState(true);
+	const [selectQuizPage, setSelectQuizPage] = useState(false);
+
+	const quizInfo = quizData.map(quizData => {
+		return <QuizInfo quizData={quizData}></QuizInfo>;
+	});
+
 	return (
 		<>
 			<GlobalStyle />
 			<AppContainer>
 				<Header>Quiz App</Header>
-				<Container>
-					<Description>
-						<p>
-							This is a Demo My Quiz App I created these apps by myself. Using design app Figma and
-							uses technologies React and Typescrip
-						</p>
-					</Description>
-					<ButtonStart>Play</ButtonStart>
-				</Container>
+				{homePage && (
+					<Container>
+						<Description>
+							<p>
+								This is a Demo My Quiz App I created these apps by myself. Using design app Figma
+								and uses technologies React and Typescrip
+							</p>
+						</Description>
+						<ButtonStart
+							onClick={() => {
+								setHomepage(false);
+								setSelectQuizPage(true);
+							}}>
+							Play
+						</ButtonStart>
+					</Container>
+				)}
+				{selectQuizPage && <Container>{quizInfo}</Container>}
 			</AppContainer>
 		</>
 	);
@@ -52,11 +72,11 @@ const Header = styled.p`
 `;
 
 const Container = styled.div`
-	display: flex;
+	display: grid;
+	grid-template-rows: 45% 45%;
 	justify-content: center;
-	align-content: space-around;
-	flex-wrap: wrap;
-
+	align-items: center;
+	justify-items: center;
 	height: 530px;
 	width: 100%;
 	border-radius: 28px 28px 0px 0px;
