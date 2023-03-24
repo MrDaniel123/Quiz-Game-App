@@ -5,14 +5,26 @@ import styled from 'styled-components';
 import { createGlobalStyle } from 'styled-components';
 
 import QuizInfo from './components/QuizInfo';
+import QuizGame from './components/QuizGame';
 import { quizData } from './data';
 
 function App() {
 	const [homePage, setHomepage] = useState(true);
 	const [selectQuizPage, setSelectQuizPage] = useState(false);
+	const [quizGamePage, setQuizGamePage] = useState(false);
+
+	const loadQuizHelper = () => {
+		setSelectQuizPage(false);
+		setQuizGamePage(true);
+	};
 
 	const quizInfo = quizData.map(quizData => {
-		return <QuizInfo quizData={quizData}></QuizInfo>;
+		return (
+			<QuizInfo
+				quizData={quizData}
+				onClickEvent={loadQuizHelper}
+				key={quizData.quizName}></QuizInfo>
+		);
 	});
 
 	return (
@@ -38,6 +50,11 @@ function App() {
 					</Container>
 				)}
 				{selectQuizPage && <Container>{quizInfo}</Container>}
+				{quizGamePage && (
+					<Container>
+						<QuizGame></QuizGame>
+					</Container>
+				)}
 			</AppContainer>
 		</>
 	);
@@ -73,7 +90,7 @@ const Header = styled.p`
 
 const Container = styled.div`
 	display: grid;
-	grid-template-rows: 45% 45%;
+
 	justify-content: center;
 	align-items: center;
 	justify-items: center;

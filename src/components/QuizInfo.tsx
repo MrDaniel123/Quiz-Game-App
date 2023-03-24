@@ -6,14 +6,15 @@ import { QuizList } from '../data';
 
 type Props = {
 	quizData: QuizList;
+	onClickEvent: () => any;
 };
 
-const QuizInfo = ({ quizData }: Props) => {
+const QuizInfo = ({ quizData, onClickEvent }: Props) => {
 	return (
 		<Container>
 			<h1>{quizData.quizName}</h1>
 			<p>{quizData.description}</p>
-			<ButtonPlay>Play</ButtonPlay>
+			<ButtonPlay onClick={onClickEvent}>Play</ButtonPlay>
 		</Container>
 	);
 };
