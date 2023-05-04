@@ -9,6 +9,8 @@ type Props = {
 	onClickEvent: () => any;
 };
 
+//todo QUiz info must render quiz game component and give him quizData
+
 const QuizInfo = ({ quizData, onClickEvent }: Props) => {
 	return (
 		<Container>
