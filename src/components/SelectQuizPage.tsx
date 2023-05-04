@@ -4,20 +4,26 @@ import styled from 'styled-components';
 
 import { QuizList } from '../data';
 
-type Props = {
-	quizData: QuizList;
-	onClickEvent: () => any;
-};
-
 //todo QUiz info must render quiz game component and give him quizData
 
-const QuizInfo = ({ quizData, onClickEvent }: Props) => {
+// const quizInfo = quizData.map(quizData => {
+// 	return (
+// 		<QuizInfo
+// 			quizData={quizData}
+// 			onClickEvent={loadQuizHelper}
+// 			key={quizData.quizName}></QuizInfo>
+// 	);
+// });
+
+const QuizInfo = () => {
 	return (
-		<Container>
-			<h1>{quizData.quizName}</h1>
-			<p>{quizData.description}</p>
-			<ButtonPlay onClick={onClickEvent}>Play</ButtonPlay>
-		</Container>
+		// <Container>
+		// 	<h1>{quizData.quizName}</h1>
+		// 	<p>{quizData.description}</p>
+		// 	<ButtonPlay onClick={onClickEvent}>Play</ButtonPlay>
+		// </Container>
+
+		<div>Hello</div>
 	);
 };
 

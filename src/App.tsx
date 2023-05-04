@@ -4,57 +4,24 @@ import { useState } from 'react';
 import styled from 'styled-components';
 import { createGlobalStyle } from 'styled-components';
 
-import QuizInfo from './components/QuizInfo';
-import QuizGame from './components/QuizGame';
-import { quizData } from './data';
-
 function App() {
-	const [homePage, setHomepage] = useState(true);
-	const [selectQuizPage, setSelectQuizPage] = useState(false);
-	const [quizGamePage, setQuizGamePage] = useState(false);
-
-	const loadQuizHelper = () => {
-		setSelectQuizPage(false);
-		setQuizGamePage(true);
-	};
-
-	const quizInfo = quizData.map(quizData => {
-		return (
-			<QuizInfo
-				quizData={quizData}
-				onClickEvent={loadQuizHelper}
-				key={quizData.quizName}></QuizInfo>
-		);
-	});
-
 	return (
 		<>
 			<GlobalStyle />
 			<AppContainer>
 				<Header>Quiz App</Header>
-				{homePage && (
-					<Container>
-						<Description>
-							<p>
-								This is a Demo My Quiz App I created these apps by myself. Using design app Figma
-								and uses technologies React and Typescrip
-							</p>
-						</Description>
-						<ButtonStart
-							onClick={() => {
-								setHomepage(false);
-								setSelectQuizPage(true);
-							}}>
-							Play
-						</ButtonStart>
-					</Container>
-				)}
-				{selectQuizPage && <Container>{quizInfo}</Container>}
-				{quizGamePage && (
-					<Container>
-						<QuizGame></QuizGame>
-					</Container>
-				)}
+
+				<Container>
+					<Description>
+						<p>
+							This is a Demo My Quiz App I created these apps by myself. Using design app Figma and
+							uses technologies React and Typescrip
+						</p>
+					</Description>
+					<ButtonStart>
+						<a href='/menue'>Start</a>
+					</ButtonStart>
+				</Container>
 			</AppContainer>
 		</>
 	);
@@ -126,7 +93,11 @@ const ButtonStart = styled.button`
 	text-align: center;
 	border-radius: 50px;
 	font-size: 40px;
-	color: #fff;
+
+	& a {
+		text-decoration: none;
+		color: #fff;
+	}
 
 	box-shadow: 0px 27px 34px rgba(0, 0, 0, 0.22), 0px 11.3236px 21.1551px rgba(0, 0, 0, 0.167346),
 		0px 6.90419px 14.1512px rgba(0, 0, 0, 0.142985), 0px 4.66806px 8.8193px rgba(0, 0, 0, 0.120524),
