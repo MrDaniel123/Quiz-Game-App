@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import MainPage from './pages/MainPage';
 import ErrorPage from './pages/ErrorPage';
 import SelectQuizPage from './pages/SelectQuizPage';
-import GameQuiz from './pages/GameQuiz';
+import GameQuizPage from './pages/GameQuizPage';
 
 import { GlobalStyle } from './universalCss';
 
@@ -21,7 +21,7 @@ const router = createBrowserRouter([
 	},
 	{
 		path: '/quiz/:quizName',
-		element: <GameQuiz />,
+		element: <GameQuizPage />,
 	},
 ]);
 

@@ -1,5 +1,5 @@
-type Question = {
-	question: string;
+export type Question = {
+	questionDescription: string;
 	answerA: string;
 	answerB: string;
 	answerC: string;
@@ -10,16 +10,16 @@ type Question = {
 export type QuizList = {
 	quizName: string;
 	description: string;
-	question: Question[];
+	questions: Question[];
 };
 
 export const quizData: QuizList[] = [
 	{
 		quizName: 'City Quiz',
 		description: ' Capital City Quiz',
-		question: [
+		questions: [
 			{
-				question: 'What is the world’s most populous capital city?',
+				questionDescription: 'What is the world’s most populous capital city?',
 				answerA: 'London',
 				answerB: 'Beijing',
 				answerC: 'New Delhi',
@@ -27,7 +27,7 @@ export const quizData: QuizList[] = [
 				currentAnswer: 'New Delhi',
 			},
 			{
-				question: 'What is the capital of Turkey?',
+				questionDescription: 'What is the capital of Turkey?',
 				answerA: 'Istanbul',
 				answerB: 'Antalya',
 				answerC: 'Ankara',
@@ -35,7 +35,7 @@ export const quizData: QuizList[] = [
 				currentAnswer: 'Ankara',
 			},
 			{
-				question: 'Which country is Prague the capital of?',
+				questionDescription: 'Which country is Prague the capital of?',
 				answerA: 'Poland',
 				answerB: 'Czechia',
 				answerC: 'Romania',
@@ -43,7 +43,7 @@ export const quizData: QuizList[] = [
 				currentAnswer: 'Czechia',
 			},
 			{
-				question: 'What is the capital of Mexico?',
+				questionDescription: 'What is the capital of Mexico?',
 				answerA: 'Merida',
 				answerB: 'Oaxaca',
 				answerC: 'Guadalajara',
@@ -51,7 +51,7 @@ export const quizData: QuizList[] = [
 				currentAnswer: 'Mexico City',
 			},
 			{
-				question: 'Which county is Kabul the capital of?',
+				questionDescription: 'Which county is Kabul the capital of?',
 				answerA: 'Azerbaijan',
 				answerB: 'Austria',
 				answerC: 'Afghanistan',
