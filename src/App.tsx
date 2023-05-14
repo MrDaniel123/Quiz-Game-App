@@ -1,59 +1,46 @@
 import React from 'react';
-import { useState } from 'react';
+import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 
 import styled from 'styled-components';
-import { createGlobalStyle } from 'styled-components';
+import { AppContainer, GlobalStyle, Header } from './universalCss';
+
+import ErrorPage from './components/ErrorPage';
+import SelectQuizPage from './components/SelectQuizPage';
+
+const router = createBrowserRouter([
+	{
+		path: '/',
+		element: <App />,
+		errorElement: <ErrorPage />,
+	},
+	{
+		path: '/menue',
+		element: <SelectQuizPage />,
+	},
+]);
 
 function App() {
 	return (
-		<>
+		<AppContainer>
 			<GlobalStyle />
-			<AppContainer>
-				<Header>Quiz App</Header>
+			<Header>Quiz App</Header>
+			<Container>
+				<RouterProvider router={router}></RouterProvider>
 
-				<Container>
-					<Description>
-						<p>
-							This is a Demo My Quiz App I created these apps by myself. Using design app Figma and
-							uses technologies React and Typescrip
-						</p>
-					</Description>
-					<ButtonStart>
-						<a href='/menue'>Start</a>
-					</ButtonStart>
-				</Container>
-			</AppContainer>
-		</>
+				{/* This menue page  */}
+				{/* <Description>
+					<p>
+						This is a Demo My Quiz App I created these apps by myself. Using design app Figma and
+						uses technologies React and Typescrip
+					</p>
+				</Description>
+				<ButtonStart>
+					<a href='/menue'>Start</a>
+				</ButtonStart> */}
+			</Container>
+		</AppContainer>
 	);
 }
-
-const GlobalStyle = createGlobalStyle`
-  *{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-
-  body{
-	font-family: Arial, Helvetica, sans-serif;
-  }
-`;
-
-const AppContainer = styled.div`
-	display: flex;
-	justify-content: center;
-	align-content: space-between;
-	flex-wrap: wrap;
-	height: 100vh;
-	width: 100%;
-	background-color: #5c6482;
-`;
-
-const Header = styled.p`
-	color: #fff;
-	font-size: 48px;
-	margin-top: 20px;
-`;
 
 const Container = styled.div`
 	display: grid;

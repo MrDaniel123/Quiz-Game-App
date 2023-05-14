@@ -2,32 +2,10 @@ import React from 'react';
 
 import styled from 'styled-components';
 
-import { QuizList } from '../data';
+import { QuizList, quizData } from '../data';
+import { AppContainer, GlobalStyle, Header } from '../universalCss';
 
-//todo QUiz info must render quiz game component and give him quizData
-
-// const quizInfo = quizData.map(quizData => {
-// 	return (
-// 		<QuizInfo
-// 			quizData={quizData}
-// 			onClickEvent={loadQuizHelper}
-// 			key={quizData.quizName}></QuizInfo>
-// 	);
-// });
-
-const QuizInfo = () => {
-	return (
-		// <Container>
-		// 	<h1>{quizData.quizName}</h1>
-		// 	<p>{quizData.description}</p>
-		// 	<ButtonPlay onClick={onClickEvent}>Play</ButtonPlay>
-		// </Container>
-
-		<div>Hello</div>
-	);
-};
-
-const Container = styled.div`
+const QuizContainer = styled.div`
 	display: flex;
 	flex-direction: column;
 	justify-content: space-evenly;
@@ -52,6 +30,18 @@ const Container = styled.div`
 	}
 `;
 
+const Container = styled.div`
+	display: grid;
+
+	justify-content: center;
+	align-items: center;
+	justify-items: center;
+	height: 530px;
+	width: 100%;
+	border-radius: 28px 28px 0px 0px;
+	background-color: #fff;
+`;
+
 const ButtonPlay = styled.button`
 	all: unset;
 
@@ -70,5 +60,25 @@ const ButtonPlay = styled.button`
 		drop-shadow(0px -0.62734px 8.45616px rgba(0, 0, 0, 0.136794))
 		drop-shadow(0px -0.309258px 2.8906px rgba(0, 0, 0, 0.0907709));
 `;
+
+const quizRender = quizData.map(quizData => {
+	return (
+		<QuizContainer key={quizData.quizName}>
+			<h1>{quizData.quizName}</h1>
+			<p>{quizData.description}</p>
+			<ButtonPlay>Play</ButtonPlay>
+		</QuizContainer>
+	);
+});
+
+const QuizInfo = () => {
+	return (
+		<AppContainer>
+			<GlobalStyle />
+			<Header>Select Quiz</Header>
+			<Container>{quizRender}</Container>
+		</AppContainer>
+	);
+};
 
 export default QuizInfo;
