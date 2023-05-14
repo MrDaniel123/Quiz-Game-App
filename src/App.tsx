@@ -3,8 +3,9 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import styled from 'styled-components';
 
 import MainPage from './pages/MainPage';
-import ErrorPage from './components/ErrorPage';
+import ErrorPage from './pages/ErrorPage';
 import SelectQuizPage from './pages/SelectQuizPage';
+import GameQuiz from './pages/GameQuiz';
 
 import { GlobalStyle } from './universalCss';
 
@@ -17,6 +18,10 @@ const router = createBrowserRouter([
 	{
 		path: '/menue',
 		element: <SelectQuizPage />,
+	},
+	{
+		path: '/quiz/:quizName',
+		element: <GameQuiz />,
 	},
 ]);
 

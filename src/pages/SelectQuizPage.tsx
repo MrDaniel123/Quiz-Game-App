@@ -40,6 +40,11 @@ const ButtonPlay = styled.button`
 	height: 28px;
 	text-align: center;
 
+	& a {
+		text-decoration: none;
+		color: #fff;
+	}
+
 	box-shadow: inset 0px 0px 10px rgba(0, 0, 0, 0.37);
 	filter: drop-shadow(0px -2px 80px rgba(0, 0, 0, 0.26))
 		drop-shadow(0px -1.411px 37.2764px rgba(0, 0, 0, 0.201119))
@@ -49,11 +54,15 @@ const ButtonPlay = styled.button`
 `;
 
 const quizRender = quizData.map(quizData => {
+	const quizLink = `quiz/${quizData.quizName}`.replace(/\s/g, '');
+
 	return (
 		<QuizContainer key={quizData.quizName}>
 			<h1>{quizData.quizName}</h1>
 			<p>{quizData.description}</p>
-			<ButtonPlay>Play</ButtonPlay>
+			<ButtonPlay>
+				<a href={quizLink}>Start</a>
+			</ButtonPlay>
 		</QuizContainer>
 	);
 });
