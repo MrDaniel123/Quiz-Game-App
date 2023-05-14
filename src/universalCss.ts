@@ -12,19 +12,3 @@ export const GlobalStyle = createGlobalStyle`
 	font-family: Arial, Helvetica, sans-serif;
   }
 `;
-
-export const AppContainer = styled.div`
-	display: flex;
-	justify-content: center;
-	align-content: space-between;
-	flex-wrap: wrap;
-	width: 100%;
-	height: 100vh;
-	background-color: #5c6482;
-`;
-
-export const Header = styled.p`
-	color: #fff;
-	font-size: 48px;
-	margin-top: 20px;
-`;
