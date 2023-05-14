@@ -1,4 +1,4 @@
-export type Question = {
+export type Questions = {
 	questionDescription: string;
 	answerA: string;
 	answerB: string;
@@ -10,7 +10,7 @@ export type Question = {
 export type QuizList = {
 	quizName: string;
 	description: string;
-	questions: Question[];
+	questions: Questions[];
 };
 
 export const quizData: QuizList[] = [

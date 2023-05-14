@@ -2,9 +2,10 @@ import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { quizData, QuizList, Question } from '../data';
+import { quizData, QuizList } from '../data';
 
 import QuestionDescription from '../components/QuestionDescription';
+import AnswerButton from '../components/AnswerButton';
 
 const GameQuiz = () => {
 	const [actualQuestion, setActualQuestion]: any = useState(0);
@@ -29,7 +30,13 @@ const GameQuiz = () => {
 				<QuestionDescription
 					description={selectedQuiz.questions[actualQuestion].questionDescription}
 					answerNumber={actualQuestion + 1}
-					totalAnswer={selectedQuiz.questions.length}></QuestionDescription>
+					totalAnswer={selectedQuiz.questions.length}
+				/>
+
+				<AnswerButton answer={selectedQuiz.questions[actualQuestion].answerA} />
+				<AnswerButton answer={selectedQuiz.questions[actualQuestion].answerB} />
+				<AnswerButton answer={selectedQuiz.questions[actualQuestion].answerC} />
+				<AnswerButton answer={selectedQuiz.questions[actualQuestion].answerD} />
 			</Container>
 		</>
 	);
