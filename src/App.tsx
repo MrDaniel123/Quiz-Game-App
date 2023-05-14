@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 import MainPage from './pages/MainPage';
 import ErrorPage from './components/ErrorPage';
-import SelectQuizPage from './components/SelectQuizPage';
+import SelectQuizPage from './pages/SelectQuizPage';
 
 import { GlobalStyle } from './universalCss';
 
@@ -16,7 +16,7 @@ const router = createBrowserRouter([
 	},
 	{
 		path: '/menue',
-		// element: <SelectQuizPage />,
+		element: <SelectQuizPage />,
 	},
 ]);
 

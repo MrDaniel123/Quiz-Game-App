@@ -2,8 +2,7 @@ import React from 'react';
 
 import styled from 'styled-components';
 
-import { QuizList, quizData } from '../data';
-import { AppContainer, GlobalStyle, Header } from '../universalCss';
+import { quizData } from '../data';
 
 const QuizContainer = styled.div`
 	display: flex;
@@ -28,18 +27,6 @@ const QuizContainer = styled.div`
 	& p {
 		font-size: 14;
 	}
-`;
-
-const Container = styled.div`
-	display: grid;
-
-	justify-content: center;
-	align-items: center;
-	justify-items: center;
-	height: 530px;
-	width: 100%;
-	border-radius: 28px 28px 0px 0px;
-	background-color: #fff;
 `;
 
 const ButtonPlay = styled.button`
@@ -73,12 +60,30 @@ const quizRender = quizData.map(quizData => {
 
 const QuizInfo = () => {
 	return (
-		<AppContainer>
-			<GlobalStyle />
+		<>
 			<Header>Select Quiz</Header>
 			<Container>{quizRender}</Container>
-		</AppContainer>
+		</>
 	);
 };
+
+const Header = styled.p`
+	color: #fff;
+	font-size: 48px;
+	margin-top: 20px;
+`;
+
+const Container = styled.div`
+	display: grid;
+
+	justify-content: center;
+	align-items: start;
+	justify-items: center;
+	height: 530px;
+	width: 100%;
+	padding-top: 8vh;
+	border-radius: 28px 28px 0px 0px;
+	background-color: #fff;
+`;
 
 export default QuizInfo;
