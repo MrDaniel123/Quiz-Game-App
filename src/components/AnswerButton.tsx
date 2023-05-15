@@ -3,19 +3,35 @@ import styled from 'styled-components';
 
 type Props = {
 	answer: string;
+	// state: 'nonClicked' | 'clicked' | 'worngAnswer' | 'currentAnswer';
+	state: string;
 };
 
-const AnswerButton = ({ answer }: Props) => {
-	return <Container>{answer}</Container>;
+type StyleProps = {
+	bgcColor: string;
 };
 
-const Container = styled.div`
+const AnswerButton = ({ answer, state }: Props) => {
+	let bgcColor = '#454242';
+	if (state === 'clicked') {
+		bgcColor = '#253196';
+	} else if (state === 'worngAnswer') {
+		bgcColor = '#931F1F';
+	} else if (state === 'currentAnswer') {
+		bgcColor = '#1A992E';
+	}
+
+	return <Container bgcColor={bgcColor}>{answer}</Container>;
+};
+
+const Container = styled.button<StyleProps>`
+	all: unset;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	height: 45px;
 	width: 280px;
-	background-color: #454242;
+	background-color: ${props => props.bgcColor};
 	border-radius: 8px;
 	font-size: 24px;
 	color: #fff;

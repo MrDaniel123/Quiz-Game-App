@@ -19,6 +19,10 @@ const GameQuiz = () => {
 	});
 	const [selectedQuiz]: QuizList[] = selectedQuizArray;
 
+	// const answerButtonRender = selectedQuiz.questions.
+
+	const questionButtonCLickHandler = () => {};
+
 	const goToNextQuestionHandler = () => {
 		setActualQuestion(actualQuestion + 1);
 	};
@@ -33,10 +37,13 @@ const GameQuiz = () => {
 					totalAnswer={selectedQuiz.questions.length}
 				/>
 
-				<AnswerButton answer={selectedQuiz.questions[actualQuestion].answerA} />
-				<AnswerButton answer={selectedQuiz.questions[actualQuestion].answerB} />
-				<AnswerButton answer={selectedQuiz.questions[actualQuestion].answerC} />
-				<AnswerButton answer={selectedQuiz.questions[actualQuestion].answerD} />
+				<AnswerButton state='nonClicked' answer={selectedQuiz.questions[actualQuestion].answerA} />
+				<AnswerButton state='clicked' answer={selectedQuiz.questions[actualQuestion].answerB} />
+				<AnswerButton state='worngAnswer' answer={selectedQuiz.questions[actualQuestion].answerC} />
+				<AnswerButton
+					state='currentAnswer'
+					answer={selectedQuiz.questions[actualQuestion].answerD}
+				/>
 			</Container>
 		</>
 	);
