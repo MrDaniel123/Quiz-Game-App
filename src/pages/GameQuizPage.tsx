@@ -37,13 +37,13 @@ const GameQuiz = () => {
 					totalAnswer={selectedQuiz.questions.length}
 				/>
 
-				<AnswerButton state='nonClicked' answer={selectedQuiz.questions[actualQuestion].answerA} />
+				{/* <AnswerButton state='nonClicked' answer={selectedQuiz.questions[actualQuestion].answerA} />
 				<AnswerButton state='clicked' answer={selectedQuiz.questions[actualQuestion].answerB} />
 				<AnswerButton state='worngAnswer' answer={selectedQuiz.questions[actualQuestion].answerC} />
 				<AnswerButton
 					state='currentAnswer'
 					answer={selectedQuiz.questions[actualQuestion].answerD}
-				/>
+				/> */}
 			</Container>
 		</>
 	);

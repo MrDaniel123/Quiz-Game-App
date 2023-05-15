@@ -1,10 +1,14 @@
-export type Questions = {
-	questionDescription: string;
+export type Answers = {
 	answerA: string;
 	answerB: string;
 	answerC: string;
 	answerD: string;
+};
+
+export type Questions = {
+	questionDescription: string;
 	currentAnswer: string;
+	answers: Answers;
 };
 
 export type QuizList = {
@@ -20,43 +24,53 @@ export const quizData: QuizList[] = [
 		questions: [
 			{
 				questionDescription: 'What is the world’s most populous capital city?',
-				answerA: 'London',
-				answerB: 'Beijing',
-				answerC: 'New Delhi',
-				answerD: 'Rome',
 				currentAnswer: 'New Delhi',
+				answers: {
+					answerA: 'London',
+					answerB: 'Beijing',
+					answerC: 'New Delhi',
+					answerD: 'Rome',
+				},
 			},
 			{
 				questionDescription: 'What is the capital of Turkey?',
-				answerA: 'Istanbul',
-				answerB: 'Antalya',
-				answerC: 'Ankara',
-				answerD: 'Konya',
 				currentAnswer: 'Ankara',
+				answers: {
+					answerA: 'Istanbul',
+					answerB: 'Antalya',
+					answerC: 'Ankara',
+					answerD: 'Konya',
+				},
 			},
 			{
 				questionDescription: 'Which country is Prague the capital of?',
-				answerA: 'Poland',
-				answerB: 'Czechia',
-				answerC: 'Romania',
-				answerD: 'Portugal',
 				currentAnswer: 'Czechia',
+				answers: {
+					answerA: 'Poland',
+					answerB: 'Czechia',
+					answerC: 'Romania',
+					answerD: 'Portugal',
+				},
 			},
 			{
 				questionDescription: 'What is the capital of Mexico?',
-				answerA: 'Merida',
-				answerB: 'Oaxaca',
-				answerC: 'Guadalajara',
-				answerD: 'Mexico City',
 				currentAnswer: 'Mexico City',
+				answers: {
+					answerA: 'Merida',
+					answerB: 'Oaxaca',
+					answerC: 'Guadalajara',
+					answerD: 'Mexico City',
+				},
 			},
 			{
 				questionDescription: 'Which county is Kabul the capital of?',
-				answerA: 'Azerbaijan',
-				answerB: 'Austria',
-				answerC: 'Afghanistan',
-				answerD: 'Angola',
 				currentAnswer: 'Afghanistan',
+				answers: {
+					answerA: 'Azerbaijan',
+					answerB: 'Austria',
+					answerC: 'Afghanistan',
+					answerD: 'Angola',
+				},
 			},
 		],
 	},
