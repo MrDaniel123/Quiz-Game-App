@@ -8,7 +8,7 @@ export type Answers = {
 export type Questions = {
 	questionDescription: string;
 	currentAnswer: string;
-	answers: Answers;
+	answers: string[];
 };
 
 export type QuizList = {
@@ -25,52 +25,27 @@ export const quizData: QuizList[] = [
 			{
 				questionDescription: 'What is the world’s most populous capital city?',
 				currentAnswer: 'New Delhi',
-				answers: {
-					answerA: 'London',
-					answerB: 'Beijing',
-					answerC: 'New Delhi',
-					answerD: 'Rome',
-				},
+				answers: ['London', 'Beijing', 'New Delhi', 'Rome'],
 			},
 			{
 				questionDescription: 'What is the capital of Turkey?',
 				currentAnswer: 'Ankara',
-				answers: {
-					answerA: 'Istanbul',
-					answerB: 'Antalya',
-					answerC: 'Ankara',
-					answerD: 'Konya',
-				},
+				answers: ['Istanbul', 'Antalya', 'Ankara', 'Konya'],
 			},
 			{
 				questionDescription: 'Which country is Prague the capital of?',
 				currentAnswer: 'Czechia',
-				answers: {
-					answerA: 'Poland',
-					answerB: 'Czechia',
-					answerC: 'Romania',
-					answerD: 'Portugal',
-				},
+				answers: ['Poland', 'Czechia', 'Romania', 'Portugal'],
 			},
 			{
 				questionDescription: 'What is the capital of Mexico?',
 				currentAnswer: 'Mexico City',
-				answers: {
-					answerA: 'Merida',
-					answerB: 'Oaxaca',
-					answerC: 'Guadalajara',
-					answerD: 'Mexico City',
-				},
+				answers: ['Merida', 'Oaxaca', 'Guadalajara', 'Mexico City'],
 			},
 			{
 				questionDescription: 'Which county is Kabul the capital of?',
 				currentAnswer: 'Afghanistan',
-				answers: {
-					answerA: 'Azerbaijan',
-					answerB: 'Austria',
-					answerC: 'Afghanistan',
-					answerD: 'Angola',
-				},
+				answers: ['Azerbaijan', 'Austria', 'Afghanistan', 'Angola'],
 			},
 		],
 	},
