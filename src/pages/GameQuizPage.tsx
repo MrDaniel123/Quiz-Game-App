@@ -8,63 +8,20 @@ import QuestionDescription from '../components/QuestionDescription';
 import AnswerButton from '../components/AnswerButton';
 
 const GameQuiz = () => {
+	const [questionData, setQuestionData]: any = useState();
 	const { quizName } = useParams();
-	const [selectedQuiz, setSelectedQuiz]: any = useState();
-	const [actualQuestion, setActualQuestion]: any = useState(0);
 
-	// useEffect(() => {
-	// 	const selectedQuizArray: any = quizData.map(quizData => {
-	// 		if (quizData.quizName.replace(/\s/g, '') === quizName) {
-	// 			return quizData;
-	// 		}
-	// 	});
-	// 	const [selectedQuiz]: QuizList[] = selectedQuizArray;
-	// 	setSelectedQuiz(selectedQuiz);
-	// 	createActualQuestionData(actualQuestion);
-	// }, []);
-
-	const createActualQuestionData = (actualQuestion: number) => {
-		console.log(selectedQuiz.questions[actualQuestion]);
-
-		// const answerObj = selectedQuiz.questions[actualQuestion].answers.map((answer: any) => {
-		// 	const obj = { answer: answer, state: 'nonClicked' };
-		// 	return obj;
-		// });
-		// console.log(answerObj);
-	};
-
-	//!!Remove ANY type !!!
-
-	const answerButtonClickedHandler = (buttonKey: string) => {
-		console.log(buttonKey);
-	};
-
-	// const answerButtonRender = selectedQuiz.questions[actualQuestion].answers.map(answer => {
-	// 	return (
-	// 		<AnswerButton
-	// 			state='nonClicked'
-	// 			answer={answer}
-	// 			key={answer}
-	// 			onClickEvent={answerButtonClickedHandler}
-	// 		/>
-	// 	);
-	// });
-
-	const goToNextQuestionHandler = () => {
-		setActualQuestion(actualQuestion + 1);
-	};
+	useEffect(() => {
+		const actualQuiz = quizData.map(actualQuiz => {
+			if (actualQuiz.quizName.replace(/\s/g, '') === quizName) {
+				setQuestionData(actualQuiz);
+			}
+		});
+	}, []);
 
 	return (
 		<>
-			{/* <Header>{selectedQuiz.quizName}</Header> */}
-			<Container>
-				{/* <QuestionDescription
-					description={selectedQuiz.questions[actualQuestion].questionDescription}
-					answerNumber={actualQuestion + 1}
-					totalAnswer={selectedQuiz.questions.length}
-				/> */}
-				{/* {answerButtonRender} */}
-			</Container>
+			<Container></Container>
 		</>
 	);
 };
