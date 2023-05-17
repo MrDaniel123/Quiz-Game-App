@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -8,22 +8,47 @@ import QuestionDescription from '../components/QuestionDescription';
 import AnswerButton from '../components/AnswerButton';
 
 const GameQuiz = () => {
-	const [actualQuestion, setActualQuestion]: any = useState(0);
 	const { quizName } = useParams();
+	const [selectedQuiz, setSelectedQuiz]: any = useState();
+	const [actualQuestion, setActualQuestion]: any = useState(0);
+
+	// useEffect(() => {
+	// 	const selectedQuizArray: any = quizData.map(quizData => {
+	// 		if (quizData.quizName.replace(/\s/g, '') === quizName) {
+	// 			return quizData;
+	// 		}
+	// 	});
+	// 	const [selectedQuiz]: QuizList[] = selectedQuizArray;
+	// 	setSelectedQuiz(selectedQuiz);
+	// 	createActualQuestionData(actualQuestion);
+	// }, []);
+
+	const createActualQuestionData = (actualQuestion: number) => {
+		console.log(selectedQuiz.questions[actualQuestion]);
+
+		// const answerObj = selectedQuiz.questions[actualQuestion].answers.map((answer: any) => {
+		// 	const obj = { answer: answer, state: 'nonClicked' };
+		// 	return obj;
+		// });
+		// console.log(answerObj);
+	};
 
 	//!!Remove ANY type !!!
-	const selectedQuizArray: any = quizData.map(quizData => {
-		if (quizData.quizName.replace(/\s/g, '') === quizName) {
-			return quizData;
-		}
-	});
-	const [selectedQuiz]: QuizList[] = selectedQuizArray;
 
-	const answerButtonRender = selectedQuiz.questions[actualQuestion].answers.map(answer => {
-		return <AnswerButton state='nonClicked' answer={answer} />;
-	});
+	const answerButtonClickedHandler = (buttonKey: string) => {
+		console.log(buttonKey);
+	};
 
-	const questionButtonCLickHandler = () => {};
+	// const answerButtonRender = selectedQuiz.questions[actualQuestion].answers.map(answer => {
+	// 	return (
+	// 		<AnswerButton
+	// 			state='nonClicked'
+	// 			answer={answer}
+	// 			key={answer}
+	// 			onClickEvent={answerButtonClickedHandler}
+	// 		/>
+	// 	);
+	// });
 
 	const goToNextQuestionHandler = () => {
 		setActualQuestion(actualQuestion + 1);
@@ -31,14 +56,14 @@ const GameQuiz = () => {
 
 	return (
 		<>
-			<Header>{selectedQuiz.quizName}</Header>
+			{/* <Header>{selectedQuiz.quizName}</Header> */}
 			<Container>
-				<QuestionDescription
+				{/* <QuestionDescription
 					description={selectedQuiz.questions[actualQuestion].questionDescription}
 					answerNumber={actualQuestion + 1}
 					totalAnswer={selectedQuiz.questions.length}
-				/>
-				{answerButtonRender}
+				/> */}
+				{/* {answerButtonRender} */}
 			</Container>
 		</>
 	);

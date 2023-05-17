@@ -5,13 +5,14 @@ type Props = {
 	answer: string;
 	// state: 'nonClicked' | 'clicked' | 'worngAnswer' | 'currentAnswer';
 	state: string;
+	onClickEvent: (buttonKey: string) => void;
 };
 
 type StyleProps = {
 	bgcColor: string;
 };
 
-const AnswerButton = ({ answer, state }: Props) => {
+const AnswerButton = ({ answer, state, onClickEvent }: Props) => {
 	let bgcColor = '#454242';
 	if (state === 'clicked') {
 		bgcColor = '#253196';
@@ -21,7 +22,11 @@ const AnswerButton = ({ answer, state }: Props) => {
 		bgcColor = '#1A992E';
 	}
 
-	return <Container bgcColor={bgcColor}>{answer}</Container>;
+	return (
+		<Container bgcColor={bgcColor} onClick={() => onClickEvent(answer)}>
+			{answer}
+		</Container>
+	);
 };
 
 const Container = styled.button<StyleProps>`
