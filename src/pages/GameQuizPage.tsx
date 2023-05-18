@@ -6,24 +6,58 @@ import { quizData, QuizList } from '../data';
 
 import QuestionDescription from '../components/QuestionDescription';
 import AnswerButton from '../components/AnswerButton';
+import NextQuestionButton from '../components/NextQuestionButton';
 
 const GameQuiz = () => {
 	const [questionData, setQuestionData]: any = useState();
+	const [questionNumber, setQUestionNumber]: any = useState(0);
+	const [actualQuestion, setActualQUestion]: any = useState();
+	const [actualAnswers, setActualAnswers]: any = useState();
+
 	const { quizName } = useParams();
 
 	useEffect(() => {
-		const actualQuiz = quizData.map(actualQuiz => {
+		const actualQuizData = quizData.filter(actualQuiz => {
 			if (actualQuiz.quizName.replace(/\s/g, '') === quizName) {
-				setQuestionData(actualQuiz);
+				return actualQuiz;
 			}
 		});
+
+		const answersObject = actualQuizData[0].questions[questionNumber].answers.map(question => {
+			return {
+				question: question,
+				state: 'nonClicked',
+				isCorrectAnswer:
+					question === actualQuizData[0].questions[questionNumber].currentAnswer ? true : false,
+			};
+		});
+
+		setActualAnswers(answersObject);
+		setQuestionData(actualQuizData);
+		setActualQUestion(actualQuizData[0].questions[questionNumber]); //!!Actual questions data
 	}, []);
 
-	return (
-		<>
-			<Container></Container>
-		</>
-	);
+	// const goToNextQuestionHandler = () => {
+	// 	setQUestionNumber(questionNumber + 1);
+	// };
+
+	if (questionData) {
+		return (
+			<>
+				<Header>{quizName}</Header>
+				<Container>
+					<QuestionDescription
+						description={actualQuestion.questionDescription}
+						answerNumber={questionNumber + 1}
+						totalAnswer={questionData[0].questions.length}
+					/>
+					{/* <NextQuestionButton onClickHandler={goToNextQuestionHandler} /> */}
+				</Container>
+			</>
+		);
+	} else {
+		return null;
+	}
 };
 
 const Header = styled.p`
