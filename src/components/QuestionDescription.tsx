@@ -8,8 +8,6 @@ type Props = {
 };
 
 const QuestionDescription = ({ description, answerNumber, totalAnswer }: Props) => {
-	console.log(description, answerNumber, totalAnswer);
-
 	return (
 		<Container>
 			<h2>

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
+import { useQuizData } from '../hooks/useQuizData';
 
 import { quizData, QuizList } from '../data';
 
@@ -9,33 +10,13 @@ import AnswerButton from '../components/AnswerButton';
 import NextQuestionButton from '../components/NextQuestionButton';
 
 const GameQuiz = () => {
-	const [questionData, setQuestionData]: any = useState();
-	const [questionNumber, setQUestionNumber]: any = useState(0);
-	const [actualQuestion, setActualQUestion]: any = useState();
-	const [actualAnswers, setActualAnswers]: any = useState();
-
 	const { quizName } = useParams();
-
-	useEffect(() => {
-		const actualQuizData = quizData.filter(actualQuiz => {
-			if (actualQuiz.quizName.replace(/\s/g, '') === quizName) {
-				return actualQuiz;
-			}
-		});
-
-		const answersObject = actualQuizData[0].questions[questionNumber].answers.map(question => {
-			return {
-				answer: question,
-				state: 'nonClicked',
-				isCorrectAnswer:
-					question === actualQuizData[0].questions[questionNumber].currentAnswer ? true : false,
-			};
-		});
-
-		setActualAnswers(answersObject);
-		setQuestionData(actualQuizData);
-		setActualQUestion(actualQuizData[0].questions[questionNumber]); //!!Actual questions data
-	}, []);
+	const [questionNumber, setQUestionNumber]: any = useState(0);
+	const { questionData, actualQuestion, actualAnswers } = useQuizData(
+		quizData,
+		quizName,
+		questionNumber
+	);
 
 	const goToNextQuestionHandler = () => {
 		setQUestionNumber(questionNumber + 1);
@@ -77,7 +58,7 @@ const GameQuiz = () => {
 								answer === actualQuizData[0].questions[questionNumber].currentAnswer ? true : false,
 						};
 				});
-				setActualAnswers(answersObject);
+				// setActualAnswers(answersObject);
 			} else {
 				const answersObject = actualQuizData[0].questions[questionNumber].answers.map(answer => {
 					if (clickedAnswer === answer) {
@@ -95,7 +76,7 @@ const GameQuiz = () => {
 								answer === actualQuizData[0].questions[questionNumber].currentAnswer ? true : false,
 						};
 				});
-				setActualAnswers(answersObject);
+				// setActualAnswers(answersObject);
 			}
 		};
 
@@ -119,7 +100,7 @@ const GameQuiz = () => {
 						totalAnswer={questionData[0].questions.length}
 					/>
 					{renderAnswerButtons}
-					<NextQuestionButton onClickHandler={goToNextQuestionHandler} />
+					{/* <NextQuestionButton onClickHandler={goToNextQuestionHandler} /> */}
 				</Container>
 			</>
 		);
