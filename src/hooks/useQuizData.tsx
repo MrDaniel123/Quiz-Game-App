@@ -1,23 +1,21 @@
 import { useEffect, useState } from 'react';
 
 import { quizData } from '../data';
-
-import { QuizList } from '../data';
+import { QuizData, Questions, AnswerStateObj } from '../types/mainType';
 
 export const useQuizData = (
-	actualSelectedQuiz: QuizList[],
+	actualSelectedQuiz: QuizData[],
 	quizName: string | undefined,
 	questionNumber: number
 ) => {
-	const [questionData, setQuestionData]: any = useState();
-	const [actualQuestion, setActualQUestion]: any = useState();
-	const [actualAnswers, setActualAnswers]: any = useState();
+	const [actualQuestion, setActualQUestion] = useState<Questions | null>(null);
+	const [actualAnswers, setActualAnswers] = useState<AnswerStateObj[] | null>(null);
+
+	console.log(actualAnswers);
 
 	useEffect(() => {
 		const actualQuizData = quizData.filter(actualSelectedQuiz => {
-			if (actualSelectedQuiz.quizName.replace(/\s/g, '') === quizName) {
-				return actualSelectedQuiz;
-			}
+			return actualSelectedQuiz.quizName.replace(/\s/g, '') === quizName;
 		});
 
 		const answersObject = actualQuizData[0].questions[questionNumber].answers.map(question => {
@@ -30,9 +28,8 @@ export const useQuizData = (
 		});
 
 		setActualAnswers(answersObject);
-		setQuestionData(actualQuizData);
-		setActualQUestion(actualQuizData[0].questions[questionNumber]); //!!Actual questions data
-	}, []); //!This Use effect will be switch to otcher file
+		setActualQUestion(actualQuizData[0].questions[questionNumber]);
+	}, []);
 
-	return { questionData, actualAnswers, actualQuestion };
+	return { actualSelectedQuiz, actualAnswers, actualQuestion };
 };

@@ -3,7 +3,8 @@ import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { useQuizData } from '../hooks/useQuizData';
 
-import { quizData, QuizList } from '../data';
+import { quizData } from '../data';
+import { QuizData, Questions, Answers } from '../types/mainType';
 
 import QuestionDescription from '../components/QuestionDescription';
 import AnswerButton from '../components/AnswerButton';
@@ -12,7 +13,7 @@ import NextQuestionButton from '../components/NextQuestionButton';
 const GameQuiz = () => {
 	const { quizName } = useParams();
 	const [questionNumber, setQUestionNumber]: any = useState(0);
-	const { questionData, actualQuestion, actualAnswers } = useQuizData(
+	const { actualSelectedQuiz, actualQuestion, actualAnswers } = useQuizData(
 		quizData,
 		quizName,
 		questionNumber
@@ -22,18 +23,20 @@ const GameQuiz = () => {
 		setQUestionNumber(questionNumber + 1);
 	};
 
-	if (questionData) {
+	if (actualSelectedQuiz && actualQuestion && actualAnswers) {
 		const AnswerOnClickHandler = (clickedAnswer: any) => {
 			console.log(clickedAnswer);
 			let isClickedCurrectAnswer;
 
-			actualAnswers.forEach((answer: any) => {
-				if (answer.answer === clickedAnswer) {
-					isClickedCurrectAnswer = true;
-				} else {
-					isClickedCurrectAnswer = false;
-				}
-			});
+			if (actualAnswers) {
+				actualAnswers.forEach((answer: any) => {
+					if (answer.answer === clickedAnswer) {
+						isClickedCurrectAnswer = true;
+					} else {
+						isClickedCurrectAnswer = false;
+					}
+				});
+			}
 
 			const actualQuizData = quizData.filter(actualQuiz => {
 				if (actualQuiz.quizName.replace(/\s/g, '') === quizName) {
@@ -97,7 +100,7 @@ const GameQuiz = () => {
 					<QuestionDescription
 						description={actualQuestion.questionDescription}
 						answerNumber={questionNumber + 1}
-						totalAnswer={questionData[0].questions.length}
+						totalAnswer={actualSelectedQuiz[0].questions.length}
 					/>
 					{renderAnswerButtons}
 					{/* <NextQuestionButton onClickHandler={goToNextQuestionHandler} /> */}

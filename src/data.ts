@@ -1,23 +1,6 @@
-export type Answers = {
-	answerA: string;
-	answerB: string;
-	answerC: string;
-	answerD: string;
-};
+import { QuizData } from './types/mainType';
 
-export type Questions = {
-	questionDescription: string;
-	currentAnswer: string;
-	answers: string[];
-};
-
-export type QuizList = {
-	quizName: string;
-	description: string;
-	questions: Questions[];
-};
-
-export const quizData: QuizList[] = [
+export const quizData: QuizData[] = [
 	{
 		quizName: 'City Quiz',
 		description: ' Capital City Quiz',
