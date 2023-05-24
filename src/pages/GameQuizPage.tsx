@@ -10,6 +10,8 @@ import QuestionDescription from '../components/QuestionDescription';
 import AnswerButton from '../components/AnswerButton';
 import NextQuestionButton from '../components/NextQuestionButton';
 
+import { checkCurrentAnswer } from '../utils/checkCurrentAnswer';
+
 const GameQuiz = () => {
 	const { quizName } = useParams();
 	const [questionNumber, setQUestionNumber]: any = useState(0);
@@ -25,18 +27,7 @@ const GameQuiz = () => {
 
 	if (actualSelectedQuiz && actualQuestion && actualAnswers) {
 		const AnswerOnClickHandler = (clickedAnswer: any) => {
-			console.log(clickedAnswer);
-			let isClickedCurrectAnswer;
-
-			if (actualAnswers) {
-				actualAnswers.forEach((answer: any) => {
-					if (answer.answer === clickedAnswer) {
-						isClickedCurrectAnswer = true;
-					} else {
-						isClickedCurrectAnswer = false;
-					}
-				});
-			}
+			const isClickedCurrectAnswer = checkCurrentAnswer(actualAnswers, clickedAnswer);
 
 			const actualQuizData = quizData.filter(actualQuiz => {
 				if (actualQuiz.quizName.replace(/\s/g, '') === quizName) {

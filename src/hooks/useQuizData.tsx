@@ -11,8 +11,6 @@ export const useQuizData = (
 	const [actualQuestion, setActualQUestion] = useState<Questions | null>(null);
 	const [actualAnswers, setActualAnswers] = useState<AnswerStateObj[] | null>(null);
 
-	console.log(actualAnswers);
-
 	useEffect(() => {
 		const actualQuizData = quizData.filter(actualSelectedQuiz => {
 			return actualSelectedQuiz.quizName.replace(/\s/g, '') === quizName;
