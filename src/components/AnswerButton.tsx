@@ -1,10 +1,11 @@
+import { isDisabled } from '@testing-library/user-event/dist/utils';
 import React from 'react';
 import styled from 'styled-components';
 
 type Props = {
 	answer: string;
-	// state: 'nonClicked' | 'clicked' | 'worngAnswer' | 'currentAnswer';
-	state: string;
+	state: 'nonClicked' | 'clicked' | 'worngAnswer' | 'currentAnswer';
+	isDisabled: boolean;
 	onClickEvent: (buttonKey: string) => void;
 };
 
@@ -12,8 +13,9 @@ type StyleProps = {
 	bgcColor: string;
 };
 
-const AnswerButton = ({ answer, state, onClickEvent }: Props) => {
+const AnswerButton = ({ answer, state, isDisabled, onClickEvent }: Props) => {
 	let bgcColor = '#454242';
+
 	if (state === 'clicked') {
 		bgcColor = '#253196';
 	} else if (state === 'worngAnswer') {
@@ -23,7 +25,7 @@ const AnswerButton = ({ answer, state, onClickEvent }: Props) => {
 	}
 
 	return (
-		<Container bgcColor={bgcColor} onClick={() => onClickEvent(answer)}>
+		<Container disabled={isDisabled} bgcColor={bgcColor} onClick={() => onClickEvent(answer)}>
 			{answer}
 		</Container>
 	);

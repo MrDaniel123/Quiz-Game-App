@@ -6,7 +6,8 @@ import { QuizData, Questions, AnswerStateObj } from '../types/mainType';
 export const useQuizData = (
 	actualSelectedQuiz: QuizData[],
 	quizName: string | undefined,
-	questionNumber: number
+	questionNumber: number,
+	isClicked: boolean
 ) => {
 	const [actualQuestion, setActualQUestion] = useState<Questions | null>(null);
 	const [actualAnswers, setActualAnswers] = useState<AnswerStateObj[] | null>(null);
@@ -16,14 +17,17 @@ export const useQuizData = (
 			return actualSelectedQuiz.quizName.replace(/\s/g, '') === quizName;
 		});
 
-		const answersObject = actualQuizData[0].questions[questionNumber].answers.map(question => {
-			return {
-				answer: question,
-				state: 'nonClicked',
-				isCorrectAnswer:
-					question === actualQuizData[0].questions[questionNumber].currentAnswer ? true : false,
-			};
-		});
+		const answersObject: AnswerStateObj[] = actualQuizData[0].questions[questionNumber].answers.map(
+			question => {
+				return {
+					answer: question,
+					state: 'nonClicked',
+					isDisabled: false,
+					isCorrectAnswer:
+						question === actualQuizData[0].questions[questionNumber].currentAnswer ? true : false,
+				};
+			}
+		);
 
 		setActualAnswers(answersObject);
 		setActualQUestion(actualQuizData[0].questions[questionNumber]);
