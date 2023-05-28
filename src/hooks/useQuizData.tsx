@@ -11,11 +11,16 @@ export const useQuizData = (
 ) => {
 	const [actualQuestion, setActualQUestion] = useState<Questions | null>(null);
 	const [actualAnswers, setActualAnswers] = useState<AnswerStateObj[] | null>(null);
+	const [nextQuestionButtonSatus, setNextQuestionButtonStatus] = useState<
+		'check-answer-negatiwe' | 'check-answer-positive' | 'go-to-next-question'
+	>('check-answer-negatiwe');
+
+	const actualQuizData = quizData.filter(actualSelectedQuiz => {
+		return actualSelectedQuiz.quizName.replace(/\s/g, '') === quizName;
+	});
 
 	useEffect(() => {
-		const actualQuizData = quizData.filter(actualSelectedQuiz => {
-			return actualSelectedQuiz.quizName.replace(/\s/g, '') === quizName;
-		});
+		console.log('Rerender udeData');
 
 		const answersObject: AnswerStateObj[] = actualQuizData[0].questions[questionNumber].answers.map(
 			question => {
@@ -33,5 +38,33 @@ export const useQuizData = (
 		setActualQUestion(actualQuizData[0].questions[questionNumber]);
 	}, []);
 
-	return { actualSelectedQuiz, actualAnswers, actualQuestion };
+	const setActualizeAnswers = (clickedAnawer: string) => {
+		const answersObject: AnswerStateObj[] = actualQuizData[0].questions[questionNumber].answers.map(
+			answer => {
+				let isClicked = 'nonClicked';
+
+				if (clickedAnawer === answer) {
+					isClicked = 'clicked';
+				}
+
+				return {
+					answer: answer,
+					state: isClicked,
+					isDisabled: true,
+					isCorrectAnswer:
+						answer === actualQuizData[0].questions[questionNumber].currentAnswer ? true : false,
+				};
+			}
+		);
+		setNextQuestionButtonStatus('check-answer-positive');
+		setActualAnswers(answersObject);
+	};
+
+	return {
+		actualSelectedQuiz,
+		actualAnswers,
+		actualQuestion,
+		setActualizeAnswers,
+		nextQuestionButtonSatus,
+	};
 };

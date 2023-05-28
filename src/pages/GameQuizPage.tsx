@@ -1,3 +1,7 @@
+//TODO 1. Data to render a answer components
+//TODO 2. Render ANswer COmponent
+//TODO 3. Disabled Button after click and change button status
+
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
@@ -15,33 +19,27 @@ import { changeButtonState } from '../types/changeButtonState';
 
 const GameQuiz = () => {
 	const { quizName } = useParams();
-	const [questionNumber, setQUestionNumber] = useState<number>(0);
-	const { actualSelectedQuiz, actualQuestion, actualAnswers } = useQuizData(
-		quizData,
-		quizName,
-		questionNumber,
-		false
-	);
+	const {
+		actualSelectedQuiz,
+		actualQuestion,
+		actualAnswers,
+		setActualizeAnswers,
+		nextQuestionButtonSatus,
+	} = useQuizData(quizData, quizName, 0, false);
+
 	const [answerBtnStatus, setAnswerBtnStatus] = useState<AnswerStateObj[] | null>(actualAnswers);
 
-	const goToNextQuestionHandler = () => {
-		setQUestionNumber(questionNumber + 1);
+	const nextQuestionButtonClickHandler = () => {
+		console.log('dziala');
 	};
 
-	if (actualSelectedQuiz && actualQuestion && actualAnswers && answerBtnStatus) {
-		const AnswerOnClickHandler = (clickedAnswer: any) => {
-			// const isClickedCurrectAnswer = checkCurrentAnswer(actualAnswers, clickedAnswer);
-			// const actualAnswerBtnStatus = changeButtonState(actualAnswers, 'clicked', clickedAnswer);
-			// console.log(changeButtonState(actualAnswers, 'clicked', clickedAnswer));
-			// changeButtonState(actualAnswers, 'clicked', clickedAnswer);
-			const { actualAnswers } = useQuizData(quizData, quizName, questionNumber, true);
-
-			if (actualAnswers) {
-				setAnswerBtnStatus(changeButtonState(actualAnswers, 'clicked', clickedAnswer));
-			}
+	if (actualSelectedQuiz && actualQuestion && actualAnswers) {
+		const AnswerOnClickHandler = (clickedAnswer: string) => {
+			//!ANswer on click ---------------
+			setActualizeAnswers(clickedAnswer);
 		};
 
-		const renderAnswerButtons = answerBtnStatus.map((answer: AnswerStateObj) => {
+		const renderAnswerButtons = actualAnswers.map((answer: AnswerStateObj) => {
 			return (
 				<AnswerButton
 					key={answer.answer}
@@ -53,28 +51,20 @@ const GameQuiz = () => {
 			);
 		});
 
-		// const renderAnswerButtonsActual = answerBtnStatus.map((answer: AnswerStateObj) => {
-		// 	return (
-		// 		<AnswerButton
-		// 			answer={answer.answer}
-		// 			state={answer.state}
-		// 			isDisabled={answer.isDisabled}
-		// 			onClickEvent={AnswerOnClickHandler}
-		// 		/>
-		// 	);
-		// });
-
 		return (
 			<>
 				<Header>{quizName}</Header>
 				<Container>
 					<QuestionDescription
 						description={actualQuestion.questionDescription}
-						answerNumber={questionNumber + 1}
+						answerNumber={1 - 1}
 						totalAnswer={actualSelectedQuiz[0].questions.length}
 					/>
 					{renderAnswerButtons}
-					{/* <NextQuestionButton onClickHandler={goToNextQuestionHandler} /> */}
+					<NextQuestionButton
+						onClickHandler={nextQuestionButtonClickHandler}
+						state={nextQuestionButtonSatus}
+					/>
 				</Container>
 			</>
 		);

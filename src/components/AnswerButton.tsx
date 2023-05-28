@@ -4,7 +4,8 @@ import styled from 'styled-components';
 
 type Props = {
 	answer: string;
-	state: 'nonClicked' | 'clicked' | 'worngAnswer' | 'currentAnswer';
+	// state: 'nonClicked' | 'clicked' | 'worngAnswer' | 'currentAnswer';
+	state: string;
 	isDisabled: boolean;
 	onClickEvent: (buttonKey: string) => void;
 };
