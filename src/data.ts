@@ -1,6 +1,6 @@
 import { QuizData } from './types/mainType';
 
-export const quizData: QuizData[] = [
+export const quizList: QuizData[] = [
 	{
 		quizName: 'City Quiz',
 		description: ' Capital City Quiz',

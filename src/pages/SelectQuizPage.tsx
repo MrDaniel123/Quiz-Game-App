@@ -2,7 +2,7 @@ import React from 'react';
 
 import styled from 'styled-components';
 
-import { quizData } from '../data';
+import { quizList } from '../data';
 
 const QuizContainer = styled.div`
 	display: flex;
@@ -53,7 +53,7 @@ const ButtonPlay = styled.button`
 		drop-shadow(0px -0.309258px 2.8906px rgba(0, 0, 0, 0.0907709));
 `;
 
-const quizRender = quizData.map(quizData => {
+const quizRender = quizList.map(quizData => {
 	const quizLink = `quiz/${quizData.quizName}`.replace(/\s/g, '');
 
 	return (

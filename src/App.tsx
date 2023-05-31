@@ -20,7 +20,7 @@ const router = createBrowserRouter([
 		element: <SelectQuizPage />,
 	},
 	{
-		path: '/quiz/:quizName',
+		path: '/quiz/:actualSelectedQuizName',
 		element: <GameQuizPage />,
 	},
 ]);

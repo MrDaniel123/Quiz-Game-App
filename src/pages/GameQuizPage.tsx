@@ -5,76 +5,37 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
-import { useQuizData } from '../hooks/useQuizData';
 
-import { quizData } from '../data';
-import { QuizData, Questions, Answers, AnswerStateObj } from '../types/mainType';
+import { QuizData } from '../types/mainType';
 
-import QuestionDescription from '../components/QuestionDescription';
-import AnswerButton from '../components/AnswerButton';
-import NextQuestionButton from '../components/NextQuestionButton';
-
-import { checkCurrentAnswer } from '../utils/checkCurrentAnswer';
-import { changeButtonState } from '../types/changeButtonState';
+import { getQuizData } from '../utils/getQuestionData';
 
 const GameQuiz = () => {
-	const { quizName } = useParams();
-	const {
-		actualSelectedQuiz,
-		actualQuestion,
-		actualAnswers,
-		setActualizeAnswers,
-		nextQuestionButtonSatus,
-		setCheckAnswer,
-		showClickedAnswer,
-	} = useQuizData(quizData, quizName, false);
+	const { actualSelectedQuizName } = useParams();
 
-	const [answerBtnStatus, setAnswerBtnStatus] = useState<AnswerStateObj[] | null>(actualAnswers);
+	const [actualSelectedQuiz, setActualSelectedQuiz] = useState<QuizData[] | null>(null);
 
-	const nextQuestionButtonClickHandler = () => {
-		setCheckAnswer();
-	};
+	useEffect(() => {
+		setActualSelectedQuiz(getQuizData(actualSelectedQuizName));
+	}, []);
 
-	if (actualSelectedQuiz && actualQuestion && actualAnswers) {
-		const AnswerOnClickHandler = (clickedAnswer: string) => {
-			//!ANswer on click ---------------
-			setActualizeAnswers(clickedAnswer);
-		};
-
-		const renderAnswerButtons = actualAnswers.map((answer: AnswerStateObj) => {
-			return (
-				<AnswerButton
-					key={answer.answer}
-					answer={answer.answer}
-					state={answer.isClicked}
-					isDisabled={answer.isDisabled}
-					isCurrentAnswer={answer.isCorrectAnswer}
-					showClickedAnswer={showClickedAnswer}
-					onClickEvent={AnswerOnClickHandler}
-				/>
-			);
-		});
-
-		return (
-			<>
-				<Header>{quizName}</Header>
-				<Container>
-					<QuestionDescription
+	return (
+		<>
+			<Header>{actualSelectedQuizName}</Header>
+			<Container>
+				{/* <QuestionDescription
 						description={actualQuestion.questionDescription}
 						answerNumber={1 - 1}
 						totalAnswer={actualSelectedQuiz[0].questions.length}
-					/>
-					{renderAnswerButtons}
-					<NextQuestionButton
+					/> */}
+				{/* {renderAnswerButtons} */}
+				{/* <NextQuestionButton
 						onClickHandler={nextQuestionButtonClickHandler}
 						state={nextQuestionButtonSatus}
-					/>
-				</Container>
-			</>
-		);
-	} else {
-		return null;
-	}
+					/> */}
+			</Container>
+		</>
+	);
 };
 
 const Header = styled.p`
