@@ -25,12 +25,14 @@ const GameQuiz = () => {
 		actualAnswers,
 		setActualizeAnswers,
 		nextQuestionButtonSatus,
-	} = useQuizData(quizData, quizName, 0, false);
+		setCheckAnswer,
+		showClickedAnswer,
+	} = useQuizData(quizData, quizName, false);
 
 	const [answerBtnStatus, setAnswerBtnStatus] = useState<AnswerStateObj[] | null>(actualAnswers);
 
 	const nextQuestionButtonClickHandler = () => {
-		console.log('dziala');
+		setCheckAnswer();
 	};
 
 	if (actualSelectedQuiz && actualQuestion && actualAnswers) {
@@ -44,8 +46,10 @@ const GameQuiz = () => {
 				<AnswerButton
 					key={answer.answer}
 					answer={answer.answer}
-					state={answer.state}
+					state={answer.isClicked}
 					isDisabled={answer.isDisabled}
+					isCurrentAnswer={answer.isCorrectAnswer}
+					showClickedAnswer={showClickedAnswer}
 					onClickEvent={AnswerOnClickHandler}
 				/>
 			);

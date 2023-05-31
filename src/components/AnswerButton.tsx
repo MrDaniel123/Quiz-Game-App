@@ -7,6 +7,8 @@ type Props = {
 	// state: 'nonClicked' | 'clicked' | 'worngAnswer' | 'currentAnswer';
 	state: string;
 	isDisabled: boolean;
+	showClickedAnswer: boolean;
+	isCurrentAnswer: boolean;
 	onClickEvent: (buttonKey: string) => void;
 };
 
@@ -14,15 +16,25 @@ type StyleProps = {
 	bgcColor: string;
 };
 
-const AnswerButton = ({ answer, state, isDisabled, onClickEvent }: Props) => {
+const AnswerButton = ({
+	answer,
+	state,
+	isDisabled,
+	onClickEvent,
+	showClickedAnswer,
+	isCurrentAnswer,
+}: Props) => {
 	let bgcColor = '#454242';
 
 	if (state === 'clicked') {
 		bgcColor = '#253196';
-	} else if (state === 'worngAnswer') {
-		bgcColor = '#931F1F';
-	} else if (state === 'currentAnswer') {
-		bgcColor = '#1A992E';
+	}
+	if (state === 'clicked' && showClickedAnswer === true) {
+		if (isCurrentAnswer) {
+			bgcColor = '#1A992E';
+		} else {
+			bgcColor = '#931F1F';
+		}
 	}
 
 	return (

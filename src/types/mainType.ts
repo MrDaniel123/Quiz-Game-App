@@ -19,8 +19,7 @@ export type QuizData = {
 
 export interface AnswerStateObj {
 	answer: string;
-	// state: 'nonClicked' | 'clicked' | 'worngAnswer' | 'currentAnswer';
-	state: string;
+	isClicked: string;
 	isDisabled: boolean;
 	isCorrectAnswer: boolean;
 }

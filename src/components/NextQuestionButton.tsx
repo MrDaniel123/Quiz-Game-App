@@ -14,7 +14,7 @@ type Props = {
 const NextQuestionButton = ({ onClickHandler, state }: Props) => {
 	if (state === 'check-answer-negatiwe') {
 		return (
-			<Button onClick={onClickHandler}>
+			<Button disabled={true} onClick={onClickHandler}>
 				Check Answer <Icon src={negativeMark} alt='' />
 			</Button>
 		);

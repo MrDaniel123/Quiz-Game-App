@@ -6,7 +6,7 @@ import { QuizData, Questions, AnswerStateObj } from '../types/mainType';
 export const useQuizData = (
 	actualSelectedQuiz: QuizData[],
 	quizName: string | undefined,
-	questionNumber: number,
+	// questionNumber: number,
 	isClicked: boolean
 ) => {
 	const [actualQuestion, setActualQUestion] = useState<Questions | null>(null);
@@ -14,19 +14,19 @@ export const useQuizData = (
 	const [nextQuestionButtonSatus, setNextQuestionButtonStatus] = useState<
 		'check-answer-negatiwe' | 'check-answer-positive' | 'go-to-next-question'
 	>('check-answer-negatiwe');
+	const [showClickedAnswer, setShowClickedAnswer] = useState(false);
+	const [questionNumber, setQuestionNumber] = useState(0);
 
 	const actualQuizData = quizData.filter(actualSelectedQuiz => {
 		return actualSelectedQuiz.quizName.replace(/\s/g, '') === quizName;
 	});
 
 	useEffect(() => {
-		console.log('Rerender udeData');
-
 		const answersObject: AnswerStateObj[] = actualQuizData[0].questions[questionNumber].answers.map(
 			question => {
 				return {
-					answer: question,
-					state: 'nonClicked',
+					answer: question, //TODO CHange question to answer
+					isClicked: 'nonClicked',
 					isDisabled: false,
 					isCorrectAnswer:
 						question === actualQuizData[0].questions[questionNumber].currentAnswer ? true : false,
@@ -49,7 +49,7 @@ export const useQuizData = (
 
 				return {
 					answer: answer,
-					state: isClicked,
+					isClicked: isClicked,
 					isDisabled: true,
 					isCorrectAnswer:
 						answer === actualQuizData[0].questions[questionNumber].currentAnswer ? true : false,
@@ -60,11 +60,25 @@ export const useQuizData = (
 		setActualAnswers(answersObject);
 	};
 
+	const setCheckAnswer = () => {
+		setShowClickedAnswer(true);
+		setNextQuestionButtonStatus('go-to-next-question');
+
+		if (nextQuestionButtonSatus === 'go-to-next-question') {
+			setQuestionNumber(questionNumber + 1);
+			setShowClickedAnswer(false);
+			setNextQuestionButtonStatus('check-answer-negatiwe');
+			setActualQUestion(actualQuizData[0].questions[questionNumber + 1]);
+		}
+	};
+
 	return {
 		actualSelectedQuiz,
 		actualAnswers,
 		actualQuestion,
 		setActualizeAnswers,
 		nextQuestionButtonSatus,
+		setCheckAnswer,
+		showClickedAnswer,
 	};
 };
