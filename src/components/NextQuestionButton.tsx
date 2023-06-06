@@ -6,34 +6,38 @@ import negativeMark from '../assets/negativeMark.png';
 import positiveMark from '../assets/positiveMark.png';
 import arrowMark from '../assets/arrow.png';
 
+import { NextQuestionType } from '../types/mainType';
+
 type Props = {
-	state: 'check-answer-negatiwe' | 'check-answer-positive' | 'go-to-next-question';
-	onClickHandler: () => void;
+	state: string;
+	onClickHandler: (state: string) => void;
 };
 
-const NextQuestionButton = ({ onClickHandler, state }: Props) => {
-	if (state === 'check-answer-negatiwe') {
-		return (
-			<Button disabled={true} onClick={onClickHandler}>
-				Check Answer <Icon src={negativeMark} alt='' />
-			</Button>
-		);
-	} else if (state === 'check-answer-positive') {
-		return (
-			<Button onClick={onClickHandler}>
-				Check Answer <Icon src={positiveMark} alt='' />
-			</Button>
-		);
+type StyleProps = {
+	bgcColor: string;
+};
+
+const NextQuestionButton = ({ state, onClickHandler }: Props) => {
+	let description = 'Check Answer';
+	let icon = negativeMark;
+	let backgroundColor = '#2D480B';
+
+	if (state === 'check-answer-clicked') {
+		icon = positiveMark;
+		backgroundColor = '#66B700';
 	} else if (state === 'go-to-next-question') {
-		return (
-			<Button onClick={onClickHandler}>
-				Check Answer <Icon src={arrowMark} alt='' />
-			</Button>
-		);
-	} else return null;
+		description = 'Next Question';
+		icon = arrowMark;
+		backgroundColor = '#092264';
+	}
+	return (
+		<Button bgcColor={backgroundColor} onClick={() => onClickHandler(state)}>
+			{description} <Icon src={icon} />
+		</Button>
+	);
 };
 
-const Button = styled.button`
+const Button = styled.button<StyleProps>`
 	all: unset;
 	display: flex;
 	justify-content: center;
@@ -45,7 +49,7 @@ const Button = styled.button`
 	border-radius: 8px;
 	color: #fff;
 
-	background: linear-gradient(0deg, rgba(0, 0, 0, 0.56), rgba(0, 0, 0, 0.56)), #66b700;
+	background-color: ${props => props.bgcColor};
 	box-shadow: 0px 27px 34px rgba(0, 0, 0, 0.22), 0px 11.3236px 21.1551px rgba(0, 0, 0, 0.167346),
 		0px 6.90419px 14.1512px rgba(0, 0, 0, 0.142985), 0px 4.66806px 8.8193px rgba(0, 0, 0, 0.120524),
 		0px 2.68781px 4.23402px rgba(0, 0, 0, 0.0888636);

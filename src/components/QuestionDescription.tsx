@@ -3,15 +3,15 @@ import styled from 'styled-components';
 
 type Props = {
 	description: string;
-	answerNumber: number;
+	questionNumber: number;
 	totalAnswer: number;
 };
 
-const QuestionDescription = ({ description, answerNumber, totalAnswer }: Props) => {
+const QuestionDescription = ({ description, questionNumber, totalAnswer }: Props) => {
 	return (
 		<Container>
 			<h2>
-				Question {answerNumber}/{totalAnswer}
+				Question {questionNumber + 1}/{totalAnswer}
 			</h2>
 			<h3>{description}</h3>
 		</Container>

@@ -19,7 +19,16 @@ export type QuizData = {
 
 export interface AnswerStateObj {
 	answer: string;
-	isClicked: string;
+	isCurrentAnswer: boolean;
 	isDisabled: boolean;
-	isCorrectAnswer: boolean;
+	isChosen: boolean;
+}
+
+export interface ActualQuiz {
+	description: string;
+	answers: AnswerStateObj[];
+}
+
+export interface NextQuestionType {
+	state: string;
 }
