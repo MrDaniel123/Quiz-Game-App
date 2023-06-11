@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useReducer, useState} from 'react';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { QuizData, ActualQuiz, NextQuestionType } from '../types/mainType';
 
+import { QuizData, ActualQuiz, NextQuestionType } from '../types/mainType';
 import { getQuizData } from '../utils/getQuestionData';
 import { getActualQuestion } from '../utils/getActualQuestion';
 
@@ -12,8 +12,13 @@ import AnswerButton from '../components/AnswerButton';
 import NextQuestionButton from '../components/NextQuestionButton';
 import EndQuizPage from './EndQuizPage';
 
+import {initialState, reducer} from "../utils/gameQuizReducer";
+
+
 const GameQuiz = () => {
 	const { actualSelectedQuizName } = useParams();
+	
+	//@TODO Change every useSTate to useReducer hooks
 
 	const [actualSelectedQuiz, setActualSelectedQuiz] = useState<QuizData[] | null>(null);
 	const [actualQuestion, setActualQuestion] = useState<ActualQuiz | null>(null);
@@ -21,15 +26,26 @@ const GameQuiz = () => {
 	const [nextQuestionState, setNextQuestionState] = useState<string>('check-answer-no-clicked');
 	const [showCurrentAnswer, setShowCurrentAnswer] = useState(false);
 	const [endQuizPageShow, setEndOfQuizPageShow] = useState(false);
+	
+	const [state, setState] = useReducer(reducer , initialState)
+	
 
+	
 	useEffect(() => {
 		let actualQuiz = getQuizData(actualSelectedQuizName);
 
 		setActualSelectedQuiz(actualQuiz);
 		setActualQuestion(getActualQuestion(actualQuiz, questionNumber));
+		
+		setState({type: 'set-actual-quiz', payload: actualQuiz})
+		setState({type: 'set-actual-question', payload: getActualQuestion(actualQuiz, questionNumber)})
 	}, []);
 
-	if (actualQuestion && actualSelectedQuiz) {
+	
+		
+	if (state.actualQuestion && state.actualQuiz && actualQuestion && actualSelectedQuiz) {
+		
+		
 		const answerButtonOnClickHandler = (clickedButton: string) => {
 			const actualClickedAnswers = actualQuestion.answers.map(answer => {
 				if (answer.answer === clickedButton) {
@@ -56,6 +72,9 @@ const GameQuiz = () => {
 
 			setActualQuestion(updatingActualQuestion);
 			setNextQuestionState('check-answer-clicked');
+			
+			setState({type: 'set-next-question-state', payload: 'check-answer-clicked'})
+			setState({type: 'set-actual-question', payload: updatingActualQuestion})
 		};
 
 		const nextQuestionButtonOnCLickHandler = (state: string) => {
@@ -63,10 +82,13 @@ const GameQuiz = () => {
 				const even = (element: any) => element.isChosen === true;
 				const someAnswerIsClicked = actualQuestion.answers.some(even);
 				if (someAnswerIsClicked) {
-					console.log('dzia');
+					
 
 					setNextQuestionState('go-to-next-question');
 					setShowCurrentAnswer(true);
+					
+					setState({type: 'set-next-question-state', payload: 'go-to-next-question'})
+					setState({type: 'set-show-current-answer'})
 				}
 			} else if (state === 'go-to-next-question') {
 				//!reset App
@@ -74,11 +96,18 @@ const GameQuiz = () => {
 					//TODO ENd of Actual QUiz
 
 					setEndOfQuizPageShow(!endQuizPageShow);
+					setState({type: 'set-show-end-quiz-page'})
 				}
 				setQuestionNumber(questionNumber + 1);
 				setNextQuestionState('check-answer-no-clicked');
 				setActualQuestion(getActualQuestion(actualSelectedQuiz, questionNumber));
 				setShowCurrentAnswer(false);
+				
+				setState({type: 'set-question-number'})
+				setState({type: 'set-next-question-state', payload: 'check-answer-no-clicked'})
+				setState({type: 'set-actual-question', payload: getActualQuestion(actualSelectedQuiz, questionNumber)})
+				setState({type: 'set-show-current-answer'})
+				
 			}
 		};
 
@@ -100,7 +129,7 @@ const GameQuiz = () => {
 						<QuestionDescription
 							description={actualQuestion.description}
 							questionNumber={questionNumber}
-							totalAnswer={actualSelectedQuiz[0].questions.length}
+							totalAnswer={state.actualQuiz[0].questions.length}
 						/>
 						{renderAnswerButtons}
 						<NextQuestionButton
@@ -115,21 +144,21 @@ const GameQuiz = () => {
 };
 
 const Header = styled.p`
-	color: #fff;
-	font-size: 48px;
-	margin-top: 20px;
+  color: #fff;
+  font-size: 48px;
+  margin-top: 20px;
 `;
 
 const Container = styled.div`
-	display: grid;
+  display: grid;
 
-	justify-content: center;
-	align-items: center;
-	justify-items: center;
-	height: 530px;
-	width: 100%;
-	border-radius: 28px 28px 0px 0px;
-	background-color: #fff;
+  justify-content: center;
+  align-items: center;
+  justify-items: center;
+  height: 530px;
+  width: 100%;
+  border-radius: 28px 28px 0px 0px;
+  background-color: #fff;
 `;
 
 export default GameQuiz;

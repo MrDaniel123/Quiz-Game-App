@@ -32,3 +32,27 @@ export interface ActualQuiz {
 export interface NextQuestionType {
 	state: string;
 }
+//@TODO Why this not working in GAMEQUIZSTATE type ??
+type QuestionButtonState = {
+	questionButtonState: 'check-answer-no-clicked' | 'check-answer-clicked' | 'go-to-next-question';
+}
+
+export type GameQuizState =  {
+	actualQuiz: QuizData[] | null;
+	actualQuestion: ActualQuiz | null
+	questionNumber: number;
+	questionButtonState: 'check-answer-no-clicked' | 'check-answer-clicked' | 'go-to-next-question';
+	showCurrentAnswer : boolean;
+	showEndQuizPage: boolean
+}
+
+
+
+export type ReducerAction =
+|{type: 'set-actual-quiz', payload: QuizData[]}
+|{type: 'set-actual-question', payload: ActualQuiz}
+|{type: 'set-question-number'}
+|{type: 'set-next-question-state',payload: 'check-answer-no-clicked' | 'check-answer-clicked' | 'go-to-next-question';}
+|{type: 'set-show-current-answer'}
+|{type:'set-show-end-quiz-page' };
+
