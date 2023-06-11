@@ -2,8 +2,6 @@ import React, {useEffect, useReducer, useState} from 'react';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 
-
-import { QuizData, ActualQuiz, NextQuestionType } from '../types/mainType';
 import { getQuizData } from '../utils/getQuestionData';
 import { getActualQuestion } from '../utils/getActualQuestion';
 
@@ -17,37 +15,25 @@ import {initialState, reducer} from "../utils/gameQuizReducer";
 
 const GameQuiz = () => {
 	const { actualSelectedQuizName } = useParams();
-	
-	//@TODO Change every useSTate to useReducer hooks
-
-	const [actualSelectedQuiz, setActualSelectedQuiz] = useState<QuizData[] | null>(null);
-	const [actualQuestion, setActualQuestion] = useState<ActualQuiz | null>(null);
-	const [questionNumber, setQuestionNumber] = useState(0);
-	const [nextQuestionState, setNextQuestionState] = useState<string>('check-answer-no-clicked');
-	const [showCurrentAnswer, setShowCurrentAnswer] = useState(false);
-	const [endQuizPageShow, setEndOfQuizPageShow] = useState(false);
-	
 	const [state, setState] = useReducer(reducer , initialState)
 	
 
 	
 	useEffect(() => {
 		let actualQuiz = getQuizData(actualSelectedQuizName);
-
-		setActualSelectedQuiz(actualQuiz);
-		setActualQuestion(getActualQuestion(actualQuiz, questionNumber));
 		
 		setState({type: 'set-actual-quiz', payload: actualQuiz})
-		setState({type: 'set-actual-question', payload: getActualQuestion(actualQuiz, questionNumber)})
+		setState({type: 'set-actual-question', payload: getActualQuestion(actualQuiz, state.questionNumber)})
 	}, []);
 
 	
 		
-	if (state.actualQuestion && state.actualQuiz && actualQuestion && actualSelectedQuiz) {
+	if (state.actualQuestion && state.actualQuiz  ) {
+		
 		
 		
 		const answerButtonOnClickHandler = (clickedButton: string) => {
-			const actualClickedAnswers = actualQuestion.answers.map(answer => {
+			const actualClickedAnswers = state.actualQuestion!.answers.map(answer => {
 				if (answer.answer === clickedButton) {
 					return {
 						answer: answer.answer,
@@ -66,74 +52,66 @@ const GameQuiz = () => {
 			});
 
 			const updatingActualQuestion = {
-				description: actualQuestion.description,
+				description: state.actualQuestion!.description,
 				answers: actualClickedAnswers,
 			};
 
-			setActualQuestion(updatingActualQuestion);
-			setNextQuestionState('check-answer-clicked');
 			
 			setState({type: 'set-next-question-state', payload: 'check-answer-clicked'})
 			setState({type: 'set-actual-question', payload: updatingActualQuestion})
 		};
 
-		const nextQuestionButtonOnCLickHandler = (state: string) => {
-			if (state === 'check-answer-clicked') {
+		const nextQuestionButtonOnCLickHandler = (type: string) => {
+			if (type === 'check-answer-clicked') {
 				const even = (element: any) => element.isChosen === true;
-				const someAnswerIsClicked = actualQuestion.answers.some(even);
+				const someAnswerIsClicked = state.actualQuestion!.answers.some(even);
 				if (someAnswerIsClicked) {
 					
 
-					setNextQuestionState('go-to-next-question');
-					setShowCurrentAnswer(true);
-					
+
 					setState({type: 'set-next-question-state', payload: 'go-to-next-question'})
 					setState({type: 'set-show-current-answer'})
 				}
-			} else if (state === 'go-to-next-question') {
+			} else if (type === 'go-to-next-question') {
 				//!reset App
-				if (questionNumber === actualQuestion.answers.length) {
+				if (state.questionNumber === state.actualQuestion!.answers.length) {
 					//TODO ENd of Actual QUiz
-
-					setEndOfQuizPageShow(!endQuizPageShow);
+					
 					setState({type: 'set-show-end-quiz-page'})
 				}
-				setQuestionNumber(questionNumber + 1);
-				setNextQuestionState('check-answer-no-clicked');
-				setActualQuestion(getActualQuestion(actualSelectedQuiz, questionNumber));
-				setShowCurrentAnswer(false);
+
 				
 				setState({type: 'set-question-number'})
 				setState({type: 'set-next-question-state', payload: 'check-answer-no-clicked'})
-				setState({type: 'set-actual-question', payload: getActualQuestion(actualSelectedQuiz, questionNumber)})
+				setState({type: 'set-actual-question', payload: getActualQuestion(state.actualQuiz!, state.questionNumber)})
 				setState({type: 'set-show-current-answer'})
 				
 			}
 		};
 
-		const renderAnswerButtons = actualQuestion.answers.map(answer => {
+		const renderAnswerButtons = state.actualQuestion.answers.map(answer => {
 			return (
 				<AnswerButton
 					key={answer.answer}
 					answer={answer}
 					isDisabled={answer.isDisabled}
-					showCurrentAnswer={showCurrentAnswer}
+					showCurrentAnswer={state.showCurrentAnswer}
 					ocClickHandler={answerButtonOnClickHandler}></AnswerButton>
 			);
 		});
-		if (!endQuizPageShow) {
+		if (!state.showEndQuizPage) {
 			return (
 				<>
 					<Header>{actualSelectedQuizName}</Header>
 					<Container>
 						<QuestionDescription
-							description={actualQuestion.description}
-							questionNumber={questionNumber}
+							description={state.actualQuestion.description}
+							questionNumber={state.questionNumber}
 							totalAnswer={state.actualQuiz[0].questions.length}
 						/>
 						{renderAnswerButtons}
 						<NextQuestionButton
-							state={nextQuestionState}
+							state={state.questionButtonState}
 							onClickHandler={nextQuestionButtonOnCLickHandler}
 						/>
 					</Container>
