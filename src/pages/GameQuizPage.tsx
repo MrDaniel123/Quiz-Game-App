@@ -19,18 +19,16 @@ const GameQuiz = () => {
     
     
     useEffect(() => {
-        let actualQuiz = getQuizData(actualSelectedQuizName);
+        let actualSelectedQuiz = getQuizData(actualSelectedQuizName);
         
-        setState({type: 'set-actual-quiz', payload: actualQuiz})
-        setState({type: 'set-actual-question', payload: getActualQuestion(actualQuiz, state.questionNumber)})
+        setState({type: 'set-actual-quiz', payload: actualSelectedQuiz})
+        setState({type: 'set-actual-question', payload: getActualQuestion(actualSelectedQuiz, state.questionNumber)})
     }, []);
     
     
     const answerButtonOnClickHandler = (clickedButton: string) => {
         
         if (state.actualQuestion) {
-            
-            
             const actualClickedAnswers = state.actualQuestion.answers.map(answer => {
                 if (answer.answer === clickedButton) {
                     return {
@@ -50,7 +48,7 @@ const GameQuiz = () => {
             });
             
             const updatingActualQuestion = {
-                description: state.actualQuestion!.description,
+                description: state.actualQuestion.description,
                 answers: actualClickedAnswers,
             };
             
@@ -67,8 +65,6 @@ const GameQuiz = () => {
                 const even = (element: any) => element.isChosen === true;
                 const someAnswerIsClicked = state.actualQuestion.answers.some(even);
                 if (someAnswerIsClicked) {
-                    
-                    
                     setState({type: 'set-next-question-state', payload: 'go-to-next-question'})
                     setState({type: 'set-show-current-answer'})
                 }
@@ -76,11 +72,8 @@ const GameQuiz = () => {
                 //!reset App
                 if (state.questionNumber === state.actualQuestion.answers.length) {
                     //TODO ENd of Actual QUiz
-                    
                     setState({type: 'set-show-end-quiz-page'})
                 }
-                
-                
                 setState({type: 'set-question-number'})
                 setState({type: 'set-next-question-state', payload: 'check-answer-no-clicked'})
                 setState({type: 'set-actual-question', payload: getActualQuestion(state.actualQuiz, state.questionNumber)})
@@ -91,7 +84,7 @@ const GameQuiz = () => {
     };
     
     
-    if (state.actualQuiz && state.actualQuestion) {
+    if (state.actualQuiz && state.actualQuestion && !state.showEndQuizPage) {
         
         const renderAnswerButtons = state.actualQuestion.answers.map(answer => {
             return (
@@ -103,26 +96,26 @@ const GameQuiz = () => {
                     ocClickHandler={answerButtonOnClickHandler}></AnswerButton>
             );
         });
-        if (!state.showEndQuizPage) {
-            return (
-                <>
-                    <Header>{actualSelectedQuizName}</Header>
-                    <Container>
-                        <QuestionDescription
-                            description={state.actualQuestion.description}
-                            questionNumber={state.questionNumber}
-                            totalAnswer={state.actualQuiz[0].questions.length}
-                        />
-                        {renderAnswerButtons}
-                        <NextQuestionButton
-                            state={state.questionButtonState}
-                            onClickHandler={nextQuestionButtonOnCLickHandler}
-                        />
-                    </Container>
-                </>
-            );
-        } else return <EndQuizPage/>;
-    }
+        
+        return (
+            <>
+                <Header>{actualSelectedQuizName}</Header>
+                <Container>
+                    <QuestionDescription
+                        description={state.actualQuestion.description}
+                        questionNumber={state.questionNumber}
+                        totalAnswer={state.actualQuiz[0].questions.length}
+                    />
+                    {renderAnswerButtons}
+                    <NextQuestionButton
+                        state={state.questionButtonState}
+                        onClickHandler={nextQuestionButtonOnCLickHandler}
+                    />
+                </Container>
+            </>
+        );
+        
+    } else return <EndQuizPage/>;
     
 };
 

@@ -1,4 +1,4 @@
-import {GameQuizState, QuizData, ReducerAction} from "../types/mainType";
+import {GameQuizState, ReducerActionType} from "../types/types";
 
 
 export const initialState: GameQuizState = {
@@ -11,7 +11,7 @@ export const initialState: GameQuizState = {
     
 }
 
-export const reducer = (prevState: GameQuizState, action: ReducerAction): GameQuizState => {
+export const reducer = (prevState: GameQuizState, action: ReducerActionType): GameQuizState => {
     switch (action.type) {
         case "set-actual-quiz":
             return {...prevState, actualQuiz: action.payload,}
